@@ -1,5 +1,5 @@
 import React from "react";
-import { Heading, Flex } from "@chakra-ui/react";
+import { Heading, Flex, Button } from "@chakra-ui/react";
 
 const Header = props => {
   return (
@@ -12,12 +12,28 @@ const Header = props => {
     
       {...props}
     >
-      <Flex align="center">
-        <Heading as="h2" size="md" letterSpacing={"-.1rem"}>
-          Codespace
-        </Heading>
-      </Flex>
+
+      <Heading as="h2" size="md" letterSpacing={"-.1rem"}>
+        Codespace
+      </Heading>
+      <Button
+        size="sm"
+        rounded="md"
+        color={["primary.500", "primary.500", "black", "black"]}
+        bg={["BlueViolet", "BlueViolet", "primary.800", "primary.800"]}
+        _hover={{
+          bg: [
+            "primary.100",
+            "primary.100",
+            "primary.600",
+            "primary.600",
+          ],
+        }}
+      >
+        Profile
+      </Button>
     </Flex>
+
   );
 };
 
