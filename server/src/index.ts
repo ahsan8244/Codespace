@@ -2,6 +2,7 @@ import http from "http";
 import express from "express";
 const app = express();
 import { Server as SocketServer } from "socket.io";
+import { handleSocket } from "./socket";
 
 app.get("/", (req, res) => {
     res.send("hello world");
@@ -16,6 +17,7 @@ const io = new SocketServer(httpServer, {
 
 io.sockets.on("connection", (socket) => {
   console.log("A client connected to the websocket layer");
+  handleSocket(socket);
 });
 
 httpServer.listen({ port: 5000 }, () => {

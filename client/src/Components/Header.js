@@ -13,7 +13,7 @@ const Header = props => {
     >
       <Flex align="center">
         <Heading as="h2" size="md" letterSpacing={"-.1rem"}>
-          CodeSpace
+          Codespace
         </Heading>
       </Flex>
     </Flex>
