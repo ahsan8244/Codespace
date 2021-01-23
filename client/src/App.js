@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Header from "./Components/Header";
 import Home from "./Features/Home";
 import Stream from "./Features/Stream";
+import ViewStream from "./Features/ViewStream";
 import "./index.css";
 import { Flex, Box } from "@chakra-ui/react";
 
@@ -22,6 +23,9 @@ function App() {
             </Route>
             <Route exact path="/start-stream/:id">
               <Stream />
+            </Route>
+            <Route exact path="/view-stream/:id">
+              <ViewStream />
             </Route>
           </Switch>
         </Box>

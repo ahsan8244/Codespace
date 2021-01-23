@@ -4,15 +4,9 @@ import Editor from "@monaco-editor/react";
 import FileLabel from "../Components/FileLabel";
 import { io } from "socket.io-client";
 
-const defaultCode = {
-  "index.html": "<html></html>",
-  "index.css": "",
-  "index.js": "",
-};
-
-const Stream = () => {
-  const [code, setCode] = useState(defaultCode);
-  const [selectedFile, setSelectedFile] = useState(Object.keys(code)[0]);
+const ViewStream = () => {
+  const [code, setCode] = useState("");
+  const [selectedFile, setSelectedFile] = useState("");
 
   const socket = useRef();
 
@@ -20,13 +14,17 @@ const Stream = () => {
     socket.current = io("http://localhost:5000");
 
     socket.current.on("connect", () => {
-      socket.current.emit("start_stream", "33944");
+      socket.current.emit("join_stream", "33944");
     });
-  }, []);
 
-  useEffect(() => {
-    socket.current.emit("change_file", selectedFile);
-  }, [selectedFile]);
+    socket.current.on("read_code", (codeReceived) => {
+      setCode(codeReceived);
+    });
+
+    socket.current.on("current_file_change", filename => {
+      setSelectedFile(filename);
+    })
+  }, [])
 
   return (
     <Flex alignItems="stretch" height="100%">
@@ -42,13 +40,13 @@ const Stream = () => {
               <FileLabel
                 key={index}
                 filename={filename}
-                onSelect={() => setSelectedFile(filename)}
                 isSelected={selectedFile === filename}
               />
             ))}
           </Box>
           <Box style={{ flex: 0.9 }}>
             <Editor
+              options={{ readOnly: true }}
               defaultLanguage="html"
               theme="vs-dark"
               value={code[selectedFile]}
@@ -66,6 +64,6 @@ const Stream = () => {
       </Box>
     </Flex>
   );
-};
+}
 
-export default Stream;
+export default ViewStream;

@@ -10,10 +10,13 @@ export const handleSocket = (socket: Socket) => {
   });
 
   socket.on("start_stream", (streamId: string) => {
-    console.log("hello")
     socket.on("write_code", (code: ICode) => {
       console.log(code);
       socket.to(streamId).emit("read_code", code);
+    });
+
+    socket.on("change_file", (filename: string) => {
+      socket.to(streamId).emit("current_file_change", filename);
     });
   });
 }

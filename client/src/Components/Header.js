@@ -7,8 +7,9 @@ const Header = props => {
       align="center"
       justify="space-between"
       padding="12px"
-      bg="teal.900"
       color="white"
+      bgColor="purple.900"
+    
       {...props}
     >
       <Flex align="center">
