@@ -26,10 +26,9 @@ const Home = () => {
 
 
   return (
-
     
-    <Flex direction="column">
-      <Center w="100%" p={50} flexDirection="column">
+    <Flex direction="column" align="center">
+      <Center w="100%" p={100} flexDirection="column">
         <Text fontSize="3xl" color="white">
           Space to code together and learn together :)
         </Text>
@@ -37,37 +36,23 @@ const Home = () => {
           Join or create your space
         </Text>
       </Center>
+      <Center>
+        <Box mt="2" shadow="md">
+          <Input
+            padding="10px"
+            placeholder="Input the room code"
+            size="sm"
+          />
+        </Box>
+      </Center>
       <Center w="100%" p={5} flexDirection="column">
         <ButtonGroup variant="outline" colorScheme="purple" spacing="6">
           <Button onClick={onToggle} colorScheme="purple">
-            Join
+            Watch
           </Button>
-          <Fade in={isOpen}>
-            <Box mt="2" shadow="md">
-              <Input
-                padding="10px"
-                placeholder="Input the room code"
-                size="sm"
-              />
-            </Box>
-          </Fade>
-          <Link to="/start-stream/23434">
-            <Button>Stream</Button>
-          </Link>
+            
         </ButtonGroup>
-        <Box>
-        <Text  w="100px" h="100px" color="white" fontSize="2xl" color="white" >
-           Explore
-        </Text>
-        </Box>
       </Center>
-      <Grid templateColumns="repeat(5, 1fr)" gap={6}>
-            <Box w="100%" h="40" bg="purple.500" />
-            <Box w="100%" h="40" bg="purple.500" />
-            <Box w="100%" h="40" bg="purple.500" />
-            <Box w="100%" h="40" bg="purple.500" />
-            <Box w="100%" h="40" bg="purple.500" />
-    </Grid>
     </Flex>
   );
 };
