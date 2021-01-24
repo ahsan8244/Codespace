@@ -18,7 +18,7 @@ const Header = props => {
       <Flex
       align="center"
       justify="space-evenly"
-      width="300px"
+      width="350px"
       >
         <Heading as="h1" size="md" letterSpacing={"-.1rem"}>
         Codespace
@@ -55,6 +55,22 @@ const Header = props => {
         >
           Browse
         </Button>
+        <Button
+        size="sm"
+        rounded="md"
+        color={["primary.500", "primary.500", "white", "white"]}
+        bg={["DarkSlateBlue", "DarkSlateBlue", "primary.800", "primary.800"]}
+        _hover={{
+          bg: [
+            "primary.100",
+            "primary.100",
+            "primary.600",
+            "primary.600",
+          ],
+        }}
+        >
+          Go Live!
+        </Button>
       </Flex>
       
       <Flex
@@ -90,7 +106,7 @@ const Header = props => {
             "primary.600",
           ],
         }}
-          icon={<MoonIcon w={4} h={4}/>}
+            icon={<MoonIcon w={4} h={4}/>}
         />
         <Avatar size="xs" name="Dan Abrahmov" src="https://bit.ly/dan-abramov" />
      
