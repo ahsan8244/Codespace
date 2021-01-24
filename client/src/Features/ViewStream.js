@@ -15,9 +15,11 @@ import { CgGitFork } from "react-icons/cg";
 import { MdFiberManualRecord } from "react-icons/md";
 import Draggable from "react-draggable";
 import { useParams } from "react-router-dom";
+import YouTube from "react-youtube";
+import {AiOutlineDrag} from "react-icons/ai";
 
 const ViewStream = () => {
-  const { id } = useParams();
+  const { id, youtubeLiveId } = useParams();
 
   const [code, setCode] = useState("");
   const [selectedFile, setSelectedFile] = useState("");
@@ -66,6 +68,31 @@ const ViewStream = () => {
             style={{ backgroundColor: "white", zIndex: 30, pointerEvents: "none" }}
             width="300px"
             height="250px"
+          />
+        </div>
+      </Draggable>
+      <Draggable style={{ position: "relative" }} bounds="parent">
+        <div
+          style={{
+            backgroundColor: "white",
+            zIndex: 30,
+            position: "absolute",
+            bottom: 10,
+            left: 10,
+          }}
+        >
+          <Flex p={2} bgColor="purple.500">
+            <Icon as={AiOutlineDrag} color="white" />
+          </Flex>
+          <YouTube
+            videoId={youtubeLiveId}
+            opts={{
+              height: "190",
+              width: "320",
+              playerVars: {
+                autoplay: 1,
+              },
+            }}
           />
         </div>
       </Draggable>

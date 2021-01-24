@@ -20,32 +20,14 @@ const Header = props => {
     >
       <Flex
       align="center"
-      justify="space-evenly"
       width="350px"
       >
         <Heading as="h1" size="md" letterSpacing={"-.1rem"}>
         Codespace
         </Heading>
-        <Button
-        size="sm"
-        rounded="md"
-        ml={6}
-        mr={2}
-        color={["primary.500", "primary.500", "white", "white"]}
-        bg={["DarkSlateBlue", "DarkSlateBlue", "primary.900", "primary.900"]}
-        _hover={{
-          bg: [
-            "primary.100",
-            "primary.100",
-            "primary.600",
-            "primary.600",
-          ],
-        }}
-        >
-          Following
-        </Button>
         <Link to="/browse">
         <Button
+        ml={6}
         size="sm"
         rounded="md"
         mr={2}

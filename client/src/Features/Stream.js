@@ -1,10 +1,12 @@
 import { useState, useRef, useEffect } from "react";
-import { Box, Flex, Text } from "@chakra-ui/react";
+import { Box, Flex, Icon, Text } from "@chakra-ui/react";
 import Editor from "@monaco-editor/react";
 import FileLabel from "../Components/FileLabel";
 import { io } from "socket.io-client";
 import Draggable from "react-draggable";
 import { useParams } from "react-router-dom";
+import YouTube from "react-youtube";
+import {AiOutlineDrag} from "react-icons/ai";
 
 const defaultCode = {
   "index.html": "<html></html>",
@@ -13,10 +15,10 @@ const defaultCode = {
 };
 
 const Stream = () => {
-  const { id } = useParams();
-  
+  const { id, youtubeLiveId } = useParams();
+
   const [code, setCode] = useState(defaultCode);
-  const [selectedFile, setSelectedFile] = useState(Object.keys(code)[0]);
+  const [selectedFile, setSelectedFile] = useState();
 
   const socket = useRef();
 
@@ -26,6 +28,8 @@ const Stream = () => {
     socket.current.on("connect", () => {
       socket.current.emit("start_stream", id);
     });
+
+    setSelectedFile(Object.keys(code)[0]);
   }, []);
 
   useEffect(() => {
@@ -34,16 +38,50 @@ const Stream = () => {
 
   return (
     <>
-      <Draggable
-        style={{ position: "relative" }}
-        bounds="parent"
-      >
-        <div style={{ backgroundColor: "white", zIndex: 30, position: "absolute", right: 10, bottom: 10  }}>
+      <Draggable style={{ position: "relative" }} bounds="parent">
+        <div
+          style={{
+            backgroundColor: "white",
+            zIndex: 30,
+            position: "absolute",
+            right: 10,
+            bottom: 10,
+          }}
+        >
           <iframe
             srcDoc={code["index.html"]}
-            style={{ backgroundColor: "white", zIndex: 30, pointerEvents: "none" }}
+            style={{
+              backgroundColor: "white",
+              zIndex: 30,
+              pointerEvents: "none",
+            }}
             width="300px"
             height="250px"
+          />
+        </div>
+      </Draggable>
+      <Draggable style={{ position: "relative" }} bounds="parent">
+        <div
+          style={{
+            backgroundColor: "white",
+            zIndex: 30,
+            position: "absolute",
+            bottom: 10,
+            left: 10,
+          }}
+        >
+          <Flex p={2} bgColor="purple.500">
+            <Icon as={AiOutlineDrag} color="white" />
+          </Flex>
+          <YouTube
+            videoId={youtubeLiveId}
+            opts={{
+              height: "190",
+              width: "320",
+              playerVars: {
+                autoplay: 1,
+              },
+            }}
           />
         </div>
       </Draggable>
@@ -82,6 +120,7 @@ const Stream = () => {
                     [selectedFile]: updatedCode,
                   };
                   socket.current?.emit("write_code", codeToSend);
+                  socket.current.emit("change_file", selectedFile);
                   setCode(codeToSend);
                 }}
               />

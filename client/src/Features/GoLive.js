@@ -1,4 +1,4 @@
-import { React } from "react";
+import { React, useState } from "react";
 import {
   Box,
   Flex,
@@ -19,6 +19,7 @@ function makeid() {
 
 const GoLive= () => {
   const { isOpen, onToggle } = useDisclosure();
+  const [youtubeLiveId, setYoutubeLiveId] = useState("");
 
   return (
     
@@ -31,9 +32,11 @@ const GoLive= () => {
           <Input
             colorScheme="primary.900"
             placeholder="YouTube live URL"
+            value={youtubeLiveId}
+            onChange={e => setYoutubeLiveId(e.target.value)}
           />
         <ButtonGroup padding="15px" variant="outline" colorScheme="purple" spacing="6">
-          <Link to={`/start-stream/${makeid()}`}>
+          <Link to={`/start-stream/${makeid()}/${youtubeLiveId}`}>
             <Button colorScheme="purple">
               Start streaming!
             </Button>
