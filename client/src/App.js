@@ -29,7 +29,7 @@ function App() {
             <Route exact path="/start-stream/:id/:youtubeLiveId">
               <Stream />
             </Route>
-            <Route exact path="/view-stream/:id">
+            <Route exact path="/view-stream/:id/:youtubeLiveId">
               <ViewStream />
             </Route>
             <Route exact path="/go-live">
