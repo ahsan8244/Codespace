@@ -14,9 +14,9 @@ function App() {
         flexDirection="column"
         height="100%"
       >
-        <Header style={{ flex: 0.02 }} />
+        <Header style={{ flex: 0.03 }} />
         <Box
-          flex={0.98}
+          flex={0.97}
         >
           <Switch>
             <Route exact path="/">

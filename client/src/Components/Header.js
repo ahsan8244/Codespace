@@ -14,6 +14,8 @@ const Header = props => {
       color="white"
       bgColor="purple.900"
       height="13px"
+      boxShadow="rgba(0, 0, 0, 0.3) 0px 4px 5px"
+      zIndex={10}
       {...props}
     >
       <Flex
@@ -27,6 +29,8 @@ const Header = props => {
         <Button
         size="sm"
         rounded="md"
+        ml={6}
+        mr={2}
         color={["primary.500", "primary.500", "white", "white"]}
         bg={["DarkSlateBlue", "DarkSlateBlue", "primary.900", "primary.900"]}
         _hover={{
@@ -43,6 +47,7 @@ const Header = props => {
         <Button
         size="sm"
         rounded="md"
+        mr={2}
         color={["primary.500", "primary.500", "white", "white"]}
         bg={["DarkSlateBlue", "DarkSlateBlue", "primary.800", "primary.800"]}
         _hover={{
