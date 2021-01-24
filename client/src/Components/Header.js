@@ -44,6 +44,7 @@ const Header = props => {
         >
           Following
         </Button>
+        <Link to="/browse">
         <Button
         size="sm"
         rounded="md"
@@ -61,6 +62,7 @@ const Header = props => {
         >
           Browse
         </Button>
+        </Link>
         <Link to="/go-live">
           <Button
           size="sm"
