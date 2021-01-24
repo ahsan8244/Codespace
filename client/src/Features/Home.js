@@ -28,28 +28,35 @@ const Home = () => {
   return (
     
     <Flex direction="column" align="center">
-      <Center p={200} flexDirection="column">
+      <Center w="100%" p={100} flexDirection="column">
         <Text fontSize="3xl" color="white">
           Space to code together and learn together :)
         </Text>
         <Text padding="15px" fontSize="2xl" color="white">
           Join or create your space
         </Text>
-        <Box shadow="md" color="white">
+      </Center>
+      <Center>
+        <Box mt="2" shadow="md">
           <Input
-            padding="15px"
-            colorScheme="primary.900"
-            placeholder="Input the room code"
+            padding="10px"
+            placeholder="Input the url"
             size="sm"
           />
         </Box>
-        <ButtonGroup padding="15px" variant="outline" colorScheme="purple" spacing="6">
+      </Center>
+      <Center w="100%" p={5} flexDirection="column">
+        <ButtonGroup variant="outline" colorScheme="purple" spacing="6">
           <Button onClick={onToggle} colorScheme="purple">
             Watch
-          </Button> 
+          </Button>
+
+          <Link to="/start-stream/23434">
+            <Button>Start Coding!</Button>
+          </Link>
+            
         </ButtonGroup>
-        
-      </Center>    
+      </Center>
     </Flex>
   );
 };
