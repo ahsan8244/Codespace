@@ -3,6 +3,7 @@ import Header from "./Components/Header";
 import Home from "./Features/Home";
 import Stream from "./Features/Stream";
 import ViewStream from "./Features/ViewStream";
+import GoLive from "./Features/GoLive";
 import "./index.css";
 import { Flex, Box } from "@chakra-ui/react";
 
@@ -26,6 +27,9 @@ function App() {
             </Route>
             <Route exact path="/view-stream/:id">
               <ViewStream />
+            </Route>
+            <Route exact path="/go-live">
+              <GoLive />
             </Route>
           </Switch>
         </Box>
