@@ -20,6 +20,6 @@ io.sockets.on("connection", (socket) => {
   handleSocket(socket);
 });
 
-httpServer.listen({ port: 5000 }, () => {
+httpServer.listen({ port: process.env.PORT || 5000 }, () => {
   console.log(`🚀  Web Socket Server ready at http://localhost:5000/`);
 });
