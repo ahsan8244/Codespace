@@ -3,6 +3,7 @@ import { Heading, Flex, Button } from "@chakra-ui/react";
 import { Avatar } from "@chakra-ui/react"
 import { IconButton } from "@chakra-ui/react"
 import { ChatIcon, MoonIcon } from '@chakra-ui/icons'
+import { Link } from "react-router-dom";
 
 const Header = props => {
   return (
@@ -55,22 +56,24 @@ const Header = props => {
         >
           Browse
         </Button>
-        <Button
-        size="sm"
-        rounded="md"
-        color={["primary.500", "primary.500", "white", "white"]}
-        bg={["DarkSlateBlue", "DarkSlateBlue", "primary.800", "primary.800"]}
-        _hover={{
-          bg: [
-            "primary.100",
-            "primary.100",
-            "primary.600",
-            "primary.600",
-          ],
-        }}
-        >
-          Go Live!
-        </Button>
+        <Link to="/go-live">
+          <Button
+          size="sm"
+          rounded="md"
+          color={["primary.500", "primary.500", "white", "white"]}
+          bg={["DarkSlateBlue", "DarkSlateBlue", "primary.800", "primary.800"]}
+          _hover={{
+            bg: [
+              "primary.100",
+              "primary.100",
+              "primary.600",
+              "primary.600",
+            ],
+          }}
+          >
+            Go Live!
+          </Button>
+        </Link>
       </Flex>
       
       <Flex
