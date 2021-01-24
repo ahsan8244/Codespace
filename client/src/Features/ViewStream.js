@@ -7,6 +7,7 @@ import {
   IconButton,
   Circle,
   Tooltip,
+  Avatar
 } from "@chakra-ui/react";
 import Editor from "@monaco-editor/react";
 import FileLabel from "../Components/FileLabel";
@@ -22,7 +23,8 @@ const ViewStream = () => {
   const { id, youtubeLiveId } = useParams();
 
   const [code, setCode] = useState("");
-  const [selectedFile, setSelectedFile] = useState("");
+  const [viewerSelectedFile, setViewerSelectedFile] = useState("");
+  const [streamerSelectedFile, setStreamerSelectedFile] = useState("");
   const [forks, setForks] = useState({});
   const [latestForkId, setLatestForkId] = useState(0);
   const [selectedFork, setSelectedFork] = useState("");
@@ -52,7 +54,7 @@ const ViewStream = () => {
     });
 
     socket.current.on("current_file_change", (filename) => {
-      setSelectedFile(filename);
+      setStreamerSelectedFile(filename);
     });
   }, []);
 
@@ -115,7 +117,9 @@ const ViewStream = () => {
                 <FileLabel
                   key={index}
                   filename={filename}
-                  isSelected={selectedFile === filename}
+                  onSelect={() => setViewerSelectedFile(filename)}
+                  isSelected={viewerSelectedFile === filename}
+                  avatar={streamerSelectedFile === filename && <Avatar size="xs" name="Dan Abrahmov" src="https://bit.ly/dan-abramov" />}
                 />
               ))}
             </Box>
@@ -126,13 +130,13 @@ const ViewStream = () => {
                 theme="vs-dark"
                 value={
                   selectedFork
-                    ? forks[selectedFork][selectedFile]
-                    : code[selectedFile]
+                    ? forks[selectedFork][viewerSelectedFile]
+                    : code[viewerSelectedFile]
                 }
                 onChange={(updatedCode) => {
                   const newCodeForFork = {
                     ...forks[selectedFork],
-                    [selectedFile]: updatedCode,
+                    [viewerSelectedFile]: updatedCode,
                   };
                   setForks({
                     ...forks,

@@ -1,6 +1,6 @@
 import { Flex, Text } from "@chakra-ui/react";
 
-const FileLabel = ({ onSelect=() => {}, isSelected, filename }) => {
+const FileLabel = ({ onSelect=() => {}, isSelected, filename, avatar=<></> }) => {
   return (
     <Flex
       p={1}
@@ -8,8 +8,11 @@ const FileLabel = ({ onSelect=() => {}, isSelected, filename }) => {
       bgColor={isSelected ? "purple.600" : ""}
       onClick={() => onSelect()}
       _hover={{ cursor: "pointer" }}
+      justify="space-between"
+      align="center"
     >
       <Text fontSize="xs">{filename}</Text>
+      {avatar}
     </Flex>
   )
 }

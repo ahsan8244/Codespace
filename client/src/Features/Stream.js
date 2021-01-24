@@ -60,31 +60,6 @@ const Stream = () => {
           />
         </div>
       </Draggable>
-      <Draggable style={{ position: "relative" }} bounds="parent">
-        <div
-          style={{
-            backgroundColor: "white",
-            zIndex: 30,
-            position: "absolute",
-            bottom: 10,
-            left: 10,
-          }}
-        >
-          <Flex p={2} bgColor="purple.500">
-            <Icon as={AiOutlineDrag} color="white" />
-          </Flex>
-          <YouTube
-            videoId={youtubeLiveId}
-            opts={{
-              height: "190",
-              width: "320",
-              playerVars: {
-                autoplay: 1,
-              },
-            }}
-          />
-        </div>
-      </Draggable>
       <Flex alignItems="stretch" height="100%">
         <Box flex={1}>
           <Flex height="100%">
