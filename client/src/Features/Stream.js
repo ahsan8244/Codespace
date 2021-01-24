@@ -4,6 +4,7 @@ import Editor from "@monaco-editor/react";
 import FileLabel from "../Components/FileLabel";
 import { io } from "socket.io-client";
 import Draggable from "react-draggable";
+import { useParams } from "react-router-dom";
 
 const defaultCode = {
   "index.html": "<html></html>",
@@ -12,6 +13,8 @@ const defaultCode = {
 };
 
 const Stream = () => {
+  const { id } = useParams();
+  
   const [code, setCode] = useState(defaultCode);
   const [selectedFile, setSelectedFile] = useState(Object.keys(code)[0]);
 
@@ -21,7 +24,7 @@ const Stream = () => {
     socket.current = io("https://codespace-server.herokuapp.com/");
 
     socket.current.on("connect", () => {
-      socket.current.emit("start_stream", "33944");
+      socket.current.emit("start_stream", id);
     });
   }, []);
 
@@ -33,8 +36,9 @@ const Stream = () => {
     <>
       <Draggable
         style={{ position: "relative" }}
+        bounds="parent"
       >
-        <div style={{ backgroundColor: "white", zIndex: 30, position: "absolute"  }}>
+        <div style={{ backgroundColor: "white", zIndex: 30, position: "absolute", right: 10, bottom: 10  }}>
           <iframe
             srcDoc={code["index.html"]}
             style={{ backgroundColor: "white", zIndex: 30, pointerEvents: "none" }}

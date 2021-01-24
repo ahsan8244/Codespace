@@ -14,8 +14,11 @@ import { io } from "socket.io-client";
 import { CgGitFork } from "react-icons/cg";
 import { MdFiberManualRecord } from "react-icons/md";
 import Draggable from "react-draggable";
+import { useParams } from "react-router-dom";
 
 const ViewStream = () => {
+  const { id } = useParams();
+
   const [code, setCode] = useState("");
   const [selectedFile, setSelectedFile] = useState("");
   const [forks, setForks] = useState({});
@@ -39,7 +42,7 @@ const ViewStream = () => {
     socket.current = io("https://codespace-server.herokuapp.com/");
 
     socket.current.on("connect", () => {
-      socket.current.emit("join_stream", "33944");
+      socket.current.emit("join_stream", id);
     });
 
     socket.current.on("read_code", (codeReceived) => {
@@ -55,8 +58,9 @@ const ViewStream = () => {
     <>
       <Draggable
         style={{ position: "relative" }}
+        bounds="parent"
       >
-        <div style={{ backgroundColor: "white", zIndex: 30, position: "absolute"  }}>
+        <div style={{ backgroundColor: "white", zIndex: 30, position: "absolute", right: 10, bottom: 10 }}>
           <iframe
             srcDoc={selectedFork ? forks[selectedFork]["index.html"] : code["index.html"]}
             style={{ backgroundColor: "white", zIndex: 30, pointerEvents: "none" }}

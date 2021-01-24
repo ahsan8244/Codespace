@@ -25,7 +25,6 @@ function App() {
           <Switch>
             <Route exact path="/">
               <Home />
-              <LiveStream/>
             </Route>
             <Route exact path="/start-stream/:id">
               <Stream />
