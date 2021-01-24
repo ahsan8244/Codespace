@@ -7,7 +7,14 @@ import {
   IconButton,
   Circle,
   Tooltip,
-  Avatar
+  Avatar,
+  Tabs,
+  TabList,
+  TabPanels,
+  Tab,
+  TabPanel,
+  Input,
+  Button,
 } from "@chakra-ui/react";
 import Editor from "@monaco-editor/react";
 import FileLabel from "../Components/FileLabel";
@@ -17,7 +24,7 @@ import { MdFiberManualRecord } from "react-icons/md";
 import Draggable from "react-draggable";
 import { useParams } from "react-router-dom";
 import YouTube from "react-youtube";
-import {AiOutlineDrag} from "react-icons/ai";
+import { AiOutlineDrag } from "react-icons/ai";
 
 const ViewStream = () => {
   const { id, youtubeLiveId } = useParams();
@@ -28,6 +35,9 @@ const ViewStream = () => {
   const [forks, setForks] = useState({});
   const [latestForkId, setLatestForkId] = useState(0);
   const [selectedFork, setSelectedFork] = useState("");
+  const [currentMessage, setCurrentMessage] = useState("");
+  const [chats, setChats] = useState([]);
+
 
   const socket = useRef();
 
@@ -53,6 +63,12 @@ const ViewStream = () => {
       setCode(codeReceived);
     });
 
+    socket.current.on("read_message", message => {
+      setChats(oldChats => {
+        return [...oldChats, message];
+      });
+    })
+
     socket.current.on("current_file_change", (filename) => {
       setStreamerSelectedFile(filename);
     });
@@ -60,17 +76,74 @@ const ViewStream = () => {
 
   return (
     <>
-      <Draggable
-        style={{ position: "relative" }}
-        bounds="parent"
-      >
-        <div style={{ backgroundColor: "white", zIndex: 30, position: "absolute", right: 10, bottom: 10 }}>
-          <iframe
-            srcDoc={selectedFork ? forks[selectedFork]["index.html"] : code["index.html"]}
-            style={{ backgroundColor: "white", zIndex: 30, pointerEvents: "none" }}
-            width="300px"
-            height="250px"
-          />
+      <Draggable style={{ position: "relative" }} bounds="parent">
+        <div
+          style={{
+            backgroundColor: "white",
+            zIndex: 30,
+            position: "absolute",
+            right: 10,
+            bottom: 10,
+          }}
+        >
+          <Tabs>
+            <TabList>
+              <Tab>Preview</Tab>
+              <Tab>Chat</Tab>
+            </TabList>
+            <TabPanels>
+              <TabPanel>
+                <iframe
+                  srcDoc={
+                    selectedFork
+                      ? forks[selectedFork]["index.html"]
+                      : code["index.html"]
+                  }
+                  style={{
+                    backgroundColor: "white",
+                    zIndex: 30,
+                    pointerEvents: "none",
+                  }}
+                  width="300px"
+                  height="250px"
+                />
+              </TabPanel>
+              <TabPanel>
+                <Box w="300px" h="250px" bgColor="white" p={0}>
+                  <Flex align="center" mb={2}>
+                    <Input
+                      placeholder="Type message"
+                      value={currentMessage}
+                      mr={2}
+                      onChange={(e) => {
+                        setCurrentMessage(e.target.value);
+                      }}
+                    />
+                    <Button
+                      onClick={() => {
+                        socket.current.emit("chat_message", {
+                          streamId: id,
+                          message: currentMessage,
+                        });
+                        setChats((oldChats) => {
+                          return [...oldChats, currentMessage];
+                        });
+                        setCurrentMessage("");
+                      }}
+                      colorScheme="purple"
+                    >
+                      Send
+                    </Button>
+                  </Flex>
+                  <Box overflow="scroll" pointerEvents="all">
+                    {chats.map((chatMessage) => (
+                      <Text mb={2}>{`${chatMessage} - Guest`}</Text>
+                    ))}
+                  </Box>
+                </Box>
+              </TabPanel>
+            </TabPanels>
+          </Tabs>
         </div>
       </Draggable>
       <Draggable style={{ position: "relative" }} bounds="parent">
@@ -119,7 +192,15 @@ const ViewStream = () => {
                   filename={filename}
                   onSelect={() => setViewerSelectedFile(filename)}
                   isSelected={viewerSelectedFile === filename}
-                  avatar={streamerSelectedFile === filename && <Avatar size="xs" name="Dan Abrahmov" src="https://picsum.photos/200/300" />}
+                  avatar={
+                    streamerSelectedFile === filename && (
+                      <Avatar
+                        size="xs"
+                        name="Dan Abrahmov"
+                        src="https://picsum.photos/200/300"
+                      />
+                    )
+                  }
                 />
               ))}
             </Box>

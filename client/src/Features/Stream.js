@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { Box, Flex, Icon, Text } from "@chakra-ui/react";
+import { Box, Flex, Icon, Text, Tabs, TabList, TabPanels, Tab, TabPanel, Input, Button } from "@chakra-ui/react";
 import Editor from "@monaco-editor/react";
 import FileLabel from "../Components/FileLabel";
 import { io } from "socket.io-client";
@@ -19,6 +19,7 @@ const Stream = () => {
 
   const [code, setCode] = useState(defaultCode);
   const [selectedFile, setSelectedFile] = useState();
+  const [chats, setChats] = useState([]);
 
   const socket = useRef();
 
@@ -28,6 +29,12 @@ const Stream = () => {
     socket.current.on("connect", () => {
       socket.current.emit("start_stream", id);
     });
+
+    socket.current.on("read_message", message => {
+      setChats((oldChats) => {
+        return [...oldChats, message];
+      });
+    })
 
     setSelectedFile(Object.keys(code)[0]);
   }, []);
@@ -40,24 +47,33 @@ const Stream = () => {
     <>
       <Draggable style={{ position: "relative" }} bounds="parent">
         <div
-          style={{
-            backgroundColor: "white",
-            zIndex: 30,
-            position: "absolute",
-            right: 10,
-            bottom: 10,
-          }}
+          style={{ position: "absolute", right: 10, bottom: 10, zIndex: 30, backgroundColor: "white" }}
         >
-          <iframe
-            srcDoc={code["index.html"]}
-            style={{
-              backgroundColor: "white",
-              zIndex: 30,
-              pointerEvents: "none",
-            }}
-            width="300px"
-            height="250px"
-          />
+          <Tabs>
+            <TabList>
+              <Tab>Preview</Tab>
+              <Tab>Chat</Tab>
+            </TabList>
+            <TabPanels>
+              <TabPanel>
+                <iframe
+                  srcDoc={code["index.html"]}
+                  style={{ backgroundColor: "white", zIndex: 30, pointerEvents: "none" }}
+                  width="300px"
+                  height="250px"
+                />
+              </TabPanel>
+              <TabPanel>
+                <Box w="300px" h="250px" bgColor="white" p={0}>
+                  <Box overflow="scroll">
+                    {chats.map((chatMessage, index) => (
+                      <Text key={index} mb={2}>{`${chatMessage} - Guest`}</Text>
+                    ))}
+                  </Box>
+                </Box>
+              </TabPanel>
+            </TabPanels>
+          </Tabs>
         </div>
       </Draggable>
       <Flex alignItems="stretch" height="100%">
