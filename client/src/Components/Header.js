@@ -22,9 +22,11 @@ const Header = props => {
       align="center"
       width="350px"
       >
-        <Heading as="h1" size="md" letterSpacing={"-.1rem"}>
-        Codespace
-        </Heading>
+        <Link to="/">
+          <Heading as="h1" size="md" letterSpacing={"-.1rem"}>
+          Codespace
+          </Heading>
+        </Link>
         <Link to="/browse">
         <Button
         ml={6}
@@ -100,7 +102,7 @@ const Header = props => {
         }}
             icon={<MoonIcon w={4} h={4}/>}
         />
-        <Avatar size="xs" name="Dan Abrahmov" src="https://bit.ly/dan-abramov" />
+        <Avatar size="xs" name="Dan Abrahmov" src="https://picsum.photos/200/300" />
      
       </Flex>
     </Flex>

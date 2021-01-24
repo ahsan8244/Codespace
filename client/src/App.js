@@ -21,6 +21,7 @@ function App() {
         <Header style={{ flex: 0.03 }} />
         <Box
           flex={0.97}
+          overflow="scroll"
         >
           <Switch>
             <Route exact path="/">

@@ -119,7 +119,7 @@ const ViewStream = () => {
                   filename={filename}
                   onSelect={() => setViewerSelectedFile(filename)}
                   isSelected={viewerSelectedFile === filename}
-                  avatar={streamerSelectedFile === filename && <Avatar size="xs" name="Dan Abrahmov" src="https://bit.ly/dan-abramov" />}
+                  avatar={streamerSelectedFile === filename && <Avatar size="xs" name="Dan Abrahmov" src="https://picsum.photos/200/300" />}
                 />
               ))}
             </Box>
