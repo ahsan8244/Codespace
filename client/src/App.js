@@ -4,9 +4,11 @@ import Home from "./Features/Home";
 import Stream from "./Features/Stream";
 import ViewStream from "./Features/ViewStream";
 import GoLive from "./Features/GoLive";
+import Browse from "./Features/Browse";
 import "./index.css";
 import { Flex, Box } from "@chakra-ui/react";
 import LiveStream from "./Features/LiveStream";
+
 
 
 function App() {
@@ -33,6 +35,9 @@ function App() {
             </Route>
             <Route exact path="/go-live">
               <GoLive />
+            </Route>
+            <Route exact path= "/browse">
+              <Browse/>
             </Route>
           </Switch>
         </Box>
